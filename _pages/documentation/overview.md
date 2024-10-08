@@ -10,4 +10,4 @@ automated tests using the OddDotNet test harness. Review these concepts first
 before diving in to the framework.
 
 # The Basics
-- [Traces and Spans](/documentation/traces/)
+- [Traces and Spans](/documentation/concepts/traces/)
