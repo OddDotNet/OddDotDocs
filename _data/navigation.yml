@@ -1,0 +1,42 @@
+main:
+  - 
+    title: "Introduction"
+    url: /introduction/
+  - 
+    title: "Quick Starts"
+    url: /quick-starts
+  - 
+    title: "Documentation"
+    url: /documentation/concepts/
+docs:
+  - 
+    title: "Concepts"
+    children:
+      - 
+        title: "Overview"
+        url: /documentation/concepts/
+      - 
+        title: "Traces"
+        url: /documentation/concepts/traces/
+  - 
+    title: "ODD Queries"
+    children:
+      -
+        title: "SpanQueryService"
+        url: /documentation/queries/spans
+samples:
+  - 
+    title: "C#"
+    children:
+      -
+        title: ".NET Aspire"
+        url: /quick-starts/csharp/aspire/
+      -
+        title: "Testcontainers"
+        url: /quick-starts/csharp/testcontainers/
+  -
+    title: "Java"
+    children:
+      -
+        title: "Coming Soon"
+        url: /quick-starts/java/coming-soon/
