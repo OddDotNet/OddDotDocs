@@ -30,7 +30,8 @@ github_username:  DoubleTK
 
 # Build settings
 # theme: just-the-docs
-theme: minimal-mistakes-jekyll
+# theme: minimal-mistakes-jekyll
+remote_theme: "mmistakes/minimal-mistakes@4.26.2"
 minimal_mistakes_skin: dark
 plugins:
   - jekyll-feed
