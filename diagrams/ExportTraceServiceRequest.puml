@@ -1,0 +1,19 @@
+@startuml ExportTraceServiceRequest
+class ExportTraceServiceRequest {
+    +Resource[] resources
+}
+
+class Resource {
+    +InstrumentationScopeSpans[] scopeSpans
+}
+
+class InstrumentationScopeSpans {
+    +Span[] spans
+}
+
+class Span
+
+ExportTraceServiceRequest "1" -- "many" Resource
+Resource "1" -- "many" InstrumentationScopeSpans
+InstrumentationScopeSpans "1" -- "many" Span
+@enduml

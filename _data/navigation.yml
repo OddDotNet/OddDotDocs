@@ -18,9 +18,21 @@ docs:
       - 
         title: "Traces"
         url: /documentation/concepts/traces/
+      - 
+        title: "Metrics"
+        url: /documentation/concepts/metrics/
+      - 
+        title: "Logs"
+        url: /documentation/concepts/logs/
+      - 
+        title: "Test Harness"
+        url: /documentation/concepts/test-harness/
   - 
     title: "ODD Queries"
     children:
+      -
+        title: "Overview"
+        url: /documentation/queries/
       -
         title: "SpanQueryService"
         url: /documentation/queries/spans

@@ -10,4 +10,6 @@ automated tests using the OddDotNet test harness. Review these concepts first
 before diving in to the framework.
 
 # The Basics
-- [Traces and Spans](/documentation/concepts/traces/)
+- [Traces and Spans]({{ "/documentation/concepts/traces/" | relative_url }})
+- [Metrics]({{ "/documentation/concepts/metrics/" | relative_url }})
+- [LogRecords]({{ "/documentation/concepts/logs/" | relative_url }})

@@ -25,5 +25,5 @@ process (just like *manually* testing your code). OddDotNet provides the means t
 around the telemetry signals being produced by your application, so that you can be sure you always
 have the right information when it matters most.
 
-Dive right in by checking out one of our [quick starts](/quick-starts/), or if you're already familiar
-with the platform, head on over to the [documentation](/documentation/concepts/).
+Dive right in by checking out one of our [quick starts]({{ "/quick-starts/" | relative_url }}), or if you're already familiar
+with the platform, head on over to the [documentation]({{ "/documentation/concepts/" | relative_url }}).

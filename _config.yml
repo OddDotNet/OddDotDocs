@@ -25,6 +25,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   collector that can receive traces from applications, and a query service that
   provides the ability to validate what traces have been sent. 
 domain: "http://odddotnet.github.io"
+baseurl: "OddDotDocs"
 url: "http://odddotnet.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  DoubleTK
 
@@ -39,7 +40,6 @@ plugins:
   - jekyll-include-cache
 
 include: ["_pages"]
-
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -59,3 +59,5 @@ include: ["_pages"]
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+exclude:
+  - diagrams

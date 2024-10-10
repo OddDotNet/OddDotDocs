@@ -1,6 +1,5 @@
 ---
 layout: single
-# classes: wide
 toc: true
 title: OddDotNet / .NET Aspire
 sidebar:
