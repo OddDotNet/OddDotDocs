@@ -6,7 +6,7 @@ permalink: /documentation/queries/spans
 sidebar:
   nav: "docs"
 ---
-Once the OddDotNet OpenTelemetry Test Harness has received `ExportTraceServiceRequest`s
+Once the OddDotNet OpenTelemetry Test Harness has received an `ExportTraceServiceRequest`
 from your application, the next step is to query the harness to confirm that
 the correct spans have been received.
 
