@@ -37,8 +37,8 @@ in the official
 repository.
 
 In total, including the instrumentation scope properties and the resource properties, there are 25 properties associated with every
-span. You can find OddDotNet's span definition [here](https://github.com/OddDotNet/OddDotProto/blob/main/proto/spans/v1/span.proto)
-and in the [WhereSpanPropertyFilter](https://github.com/OddDotNet/OddDotProto/blob/main/proto/spans/v1/span_query_request.proto).
+span. You can find OddDotNet's span definition [here](https://github.com/OddDotNet/OddDotProto/blob/main/odddotproto/proto/trace/v1/flat_span.proto)
+and in the [WhereSpanPropertyFilter](https://github.com/OddDotNet/OddDotProto/blob/main/odddotproto/proto/trace/v1/span_query_request.proto).
 Here's a code snippet for reference:
 
 ```proto

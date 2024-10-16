@@ -7,7 +7,7 @@ sidebar:
   nav: "samples"
 ---
 The examples on the left provide instructions for getting started with the OddDotNet
-OpenTelemetry test harness. Each example (will eventually!) include a video 
+OpenTelemetry test harness. Each example will (eventually!) include a video 
 describing the project, along with code snippets and written descriptions.
 
 ## Prerequisites
