@@ -1,0 +1,19 @@
+@startuml ExportMetricServiceRequest
+class ExportMetricServiceRequest {
+    +ResourceMetrics[] resourceMetrics
+}
+
+class ResourceMetrics {
+    +ScopeMetrics[] scopeMetrics
+}
+
+class ScopeMetrics {
+    +Metric[] metrics
+}
+
+class Metric
+
+ExportMetricServiceRequest "1" -- "many" ResourceMetrics
+ResourceMetrics "1" -- "many" ScopeMetrics
+ScopeMetrics "1" -- "many" Metric
+@enduml

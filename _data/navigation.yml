@@ -36,6 +36,9 @@ docs:
       -
         title: "SpanQueryService"
         url: /documentation/queries/spans
+      -
+        title: "MetricQueryService"
+        url: /documentation/queries/metrics
 samples:
   - 
     title: "C#"

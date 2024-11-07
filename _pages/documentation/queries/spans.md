@@ -6,125 +6,92 @@ permalink: /documentation/queries/spans
 sidebar:
   nav: "docs"
 ---
-Once the OddDotNet OpenTelemetry Test Harness has received an `ExportTraceServiceRequest`
-from your application, the next step is to query the harness to confirm that
-the correct spans have been received.
-
-## SpanQueryService
-The `SpanQueryService` handles queries for spans. Queries can be made using
-gRPC or (eventually) HTTP requests. The `SpanQueryRequest` is used for every query
-related to spans, and each request returns a `SpanQueryResponse`.
-
-## SpanQueryResponse
-Every query for spans will return a `SpanQueryResponse` message. The structure of that
-message is:
-
-```protobuf
-message SpanQueryResponse {
-  repeated Span spans = 1;
-}
-```
-
-The list of spans could be empty if no spans match the filters you provide
-within the timeout specified. 
+The `Span`-specific properties that can be queried are listed below.
 
 ## SpanQueryRequest
-The `SpanQueryRequest` object is a simple message that encapsulates all the
-query language needed to make a request. 
-
-```protobuf
+```proto
 message SpanQueryRequest {
-  repeated WhereSpanFilter filters = 1;
-  Take take = 2;
-  optional Duration duration = 3;
+  repeated Where filters = 1;
+  odddotnet.proto.common.v1.Take take = 2;
+  optional odddotnet.proto.common.v1.Duration duration = 3;
 }
 ```
 
-### Take
-The `Take` property supports three options.
-
-```protobuf
-message Take {
+### Where
+```proto
+message Where {
   oneof value {
-    TakeFirst takeFirst = 1;
-    TakeAll takeAll = 2;
-    TakeExact takeExact = 3;
-  }
-}
-
-message TakeFirst {}
-
-message TakeAll {}
-
-message TakeExact {
-  int32 count = 1;
-}
-```
-
-`TakeFirst` finds the first matching span based on the filters you provide. The
-query will return immediately upon finding a match, with the matching span
-contained in the `SpanQueryResponse` message.
-
-`TakeAll` will continue to add spans that match your filters until the request
-times out.
-
-Finally, `TakeExact` has a single property `count` that instructs the test harness
-to continue to match spans until it has reached the number specified in `count`.
-
-### Duration
-Duration specifies how long to wait *after the query has started* before returning
-the results.
-
-```protobuf
-message Duration {
-  int32 milliseconds = 1;
-}
-```
-
-Duration is optional. If a value is not supplied, the query will continue to match spans
-until the `Take` amount has been met. When supplying a duration, the value is in milliseconds. 
-
-If a duration value is supplied, then the query will return either when the `Take`
-criteria has been met, or when the `Duration` is met, whichever is first. This means,
-for example, that a query with a `TakeExact(100)` might not return all 100 if
-matches are not found within the `Duration`.
-
-### WhereSpanFilter
-The `filters` property of the request defines the criteria used to match a span. There
-are two types of filters for spans: "property" filters and "or" filters.
-
-```protobuf
-message WhereSpanFilter {
-  oneof value {
-    WhereSpanPropertyFilter spanProperty = 1;
-    WhereSpanOrFilter spanOr = 2;
+    PropertyFilter property = 1;
+    OrFilter or = 2;
+    odddotnet.proto.common.v1.InstrumentationScopeFilter instrumentationScope = 3;
+    odddotnet.proto.resource.v1.ResourceFilter resource = 4;
+    odddotnet.proto.common.v1.StringProperty instrumentationScopeSchemaUrl = 5;
+    odddotnet.proto.common.v1.StringProperty ResourceSchemaUrl = 6;
   }
 }
 ```
 
-Each filter has logic that evaluates to either true or false. If a filter is true, the
-span currently being checked passes that filter and moves on to the next filter in line. 
-If all filters pass, the span is considered a match and is included in the results.
-
-#### WhereSpanPropertyFilter
-The `WhereSpanPropertyFilter` provides the ability to check a specific property of a span
-using the correct data type and a comparison that makes sense for that property. See the
-concept docs around [Traces and Spans]({{ "/documentation/concepts/traces/" | relative_url }}) for more 
-information around the properties available. 
-
-#### WhereSpanOrFilter
-When you are adding a `WhereSpanPropertyFilter` to the request, each filter is added as
-an "AND". This is not always desireable, as you may want to check if property 'x' matches
-"OR" property 'y' matches. The `WhereSpanOrFilter` provides this ability. 
-
-```protobuf
-message WhereSpanOrFilter {
-  repeated WhereSpanFilter filters = 1;
+### PropertyFilter
+```proto
+message PropertyFilter {
+  oneof value {
+    odddotnet.proto.common.v1.ByteStringProperty traceId = 1;
+    odddotnet.proto.common.v1.ByteStringProperty spanId = 2;
+    odddotnet.proto.common.v1.StringProperty traceState = 3;
+    odddotnet.proto.common.v1.ByteStringProperty parentSpanId = 4;
+    odddotnet.proto.common.v1.StringProperty name = 5;
+    SpanKindProperty kind = 6;
+    odddotnet.proto.common.v1.UInt64Property startTimeUnixNano = 7;
+    odddotnet.proto.common.v1.UInt64Property endTimeUnixNano = 8;
+    odddotnet.proto.common.v1.KeyValueProperty attribute = 9;
+    odddotnet.proto.common.v1.UInt32Property droppedAttributesCount = 10;
+    EventFilter event = 11;
+    odddotnet.proto.common.v1.UInt32Property droppedEventsCount = 12;
+    LinkFilter link = 13;
+    odddotnet.proto.common.v1.UInt32Property droppedLinksCount = 14;
+    StatusFilter status = 15;
+    odddotnet.proto.common.v1.UInt32Property flags = 16;
+  }
 }
 ```
 
-The "OR" filter is just a list of filters, and it returns true if *any* of the filters
-within return true.
+### EventFilter
+```proto
+message EventFilter {
+  oneof value {
+    odddotnet.proto.common.v1.UInt64Property timeUnixNano = 1;
+    odddotnet.proto.common.v1.StringProperty name = 2;
+    odddotnet.proto.common.v1.KeyValueProperty attribute = 3;
+    odddotnet.proto.common.v1.UInt32Property droppedAttributesCount = 4;
+  }
+}
+```
+
+### LinkFilter
+```proto
+message LinkFilter {
+  oneof value {
+    odddotnet.proto.common.v1.ByteStringProperty traceId = 1;
+    odddotnet.proto.common.v1.ByteStringProperty spanId = 2;
+    odddotnet.proto.common.v1.StringProperty traceState = 3;
+    odddotnet.proto.common.v1.KeyValueProperty attribute = 4;
+    odddotnet.proto.common.v1.UInt32Property droppedAttributesCount = 5;
+    odddotnet.proto.common.v1.UInt32Property flags = 6;
+  }
+}
+```
+
+### StatusFilter
+```proto
+message StatusFilter {
+  reserved 1;
+
+  oneof value {
+    odddotnet.proto.common.v1.StringProperty message = 2;
+    SpanStatusCodeProperty code = 3;
+  }
+}
+```
 
 ## SpanQueryServiceClient
 The `SpanQueryServiceClient` is automatically generated from the `.proto` files for the
@@ -154,7 +121,7 @@ how the test harness caches spans.
 ## An Example
 The following code, written in C#, shows how to manually build a request and send it
 to the test harness. Naturally, the syntax in other languages will be slightly different.
-Additional examples in other languages is on the roadmap and will be provided soon.
+Additional examples in other languages are on the roadmap and will be provided soon.
 
 This example also assumes you have the OddDotNet test harness spun up and ready to accept
 telemetry data. For ideas around how to do this, see the [Quick Starts]({{ "/quick-starts/" | relative_url }}).
@@ -162,7 +129,7 @@ telemetry data. For ideas around how to do this, see the [Quick Starts]({{ "/qui
 ```csharp
 // ARRANGE
 // Look for spans that have the name "GET /healthz"
-var nameFilter = new WhereSpanPropertyFilter
+var nameFilter = new PropertyFilter
 {
   Name = new StringProperty
   {
@@ -172,9 +139,9 @@ var nameFilter = new WhereSpanPropertyFilter
 };
 
 // Look for spans that were generated using the EFCore instrumentation library
-var scopeFilter = new WhereSpanPropertyFilter
+var scopeFilter = new InstrumentationScopeFilter
 {
-  InstrumentationScopeName = new StringProperty
+  Name = new StringProperty
   {
     Compare = "OpenTelemetry.Instrumentation.EntityFrameworkCore",
     CompareAs = StringCompareAsType.Equals
@@ -182,7 +149,7 @@ var scopeFilter = new WhereSpanPropertyFilter
 };
 
 // We want spans that match either of those, so we're going to add them to an OR filter
-var orFilter = new WhereSpanOrFilter
+var orFilter = new OrFilter
 {
   Filters = { nameFilter, scopeFilter }
 };
@@ -212,7 +179,7 @@ SpanQueryResponse response = await client.QueryAsync(request);
 
 // Make some assertions on the spans returned
 Assert.Contains(response.Spans, span => span.InstrumentationScope.Name == "OpenTelemetry.Instrumentation.EntityFrameworkCore");
-Assert.Contains(response.Spans, span => span.Name == "GET /healthz");
+Assert.Contains(response.Spans, span => span.Span.Name == "GET /healthz");
 ```
 
 ## SpanQueryRequestBuilder
@@ -239,8 +206,8 @@ var request = new SpanQueryRequestBuilder()
     filters.AddOrFilter(orFilters => 
     {
       orFilters
-        .AddSpanNameFilter("GET /healthz", StringCompareAsType.Equals)
-        .AddInstrumentationScopeNameFilter("OpenTelemetry.Instrumentation.EntityFrameworkCore", StringCompareAsType.Equals);
+        .AddNameFilter("GET /healthz", StringCompareAsType.Equals)
+        .InstrumentationScope.AddNameFilter("OpenTelemetry.Instrumentation.EntityFrameworkCore", StringCompareAsType.Equals);
     })
   })
   .Build();
@@ -256,7 +223,7 @@ SpanQueryResponse response = await client.QueryAsync(request);
 
 // Make some assertions on the spans returned
 Assert.Contains(response.Spans, span => span.InstrumentationScope.Name == "OpenTelemetry.Instrumentation.EntityFrameworkCore");
-Assert.Contains(response.Spans, span => span.Name == "GET /healthz");
+Assert.Contains(response.Spans, span => span.Span.Name == "GET /healthz");
 ```
 
 ### Java
