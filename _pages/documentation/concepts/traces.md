@@ -1,5 +1,6 @@
 ---
 layout: single
+classes: wide
 title: "Traces and Spans"
 permalink: /documentation/concepts/traces/
 sidebar:
@@ -38,37 +39,39 @@ repository.
 
 In total, including the instrumentation scope properties and the resource properties, there are 25 properties associated with every
 span. You can find OddDotNet's span definition [here](https://github.com/OddDotNet/OddDotProto/blob/main/odddotproto/proto/trace/v1/flat_span.proto)
-and in the [WhereSpanPropertyFilter](https://github.com/OddDotNet/OddDotProto/blob/main/odddotproto/proto/trace/v1/span_query_request.proto).
+and in the [PropertyFilter](https://github.com/OddDotNet/OddDotProto/blob/main/odddotproto/proto/trace/v1/span_query_request.proto).
 Here's a code snippet for reference:
 
 ```proto
-message WhereSpanPropertyFilter {
+message Where {
   oneof value {
-    StringProperty name = 1;
-    ByteStringProperty spanId = 2;
-    ByteStringProperty traceId = 3;
-    ByteStringProperty parentSpanId = 4;
-    UInt64Property startTimeUnixNano = 5;
-    UInt64Property endTimeUnixNano = 6;
-    SpanStatusCodeProperty statusCode = 7;
-    SpanKindProperty kind = 8;
-    KeyValueProperty attribute = 9;
-    UInt64Property eventTimeUnixNano = 10;
-    StringProperty eventName = 11;
-    ByteStringProperty linkTraceId = 12;
-    ByteStringProperty linkSpanId = 13;
-    StringProperty linkTraceState = 14;
-    UInt32Property linkFlags = 15;
-    UInt32Property flags = 16;
-    StringProperty traceState = 17;
-    KeyValueProperty eventAttribute = 18;
-    KeyValueProperty linkAttribute = 19;
-    StringProperty instrumentationScopeName = 20;
-    KeyValueProperty instrumentationScopeAttribute = 21;
-    StringProperty instrumentationScopeVersion = 22;
-    StringProperty instrumentationScopeSchemaUrl = 23;
-    StringProperty ResourceSchemaUrl = 24;
-    KeyValueProperty resourceAttribute = 25;
+    PropertyFilter property = 1;
+    OrFilter or = 2;
+    odddotnet.proto.common.v1.InstrumentationScopeFilter instrumentationScope = 3;
+    odddotnet.proto.resource.v1.ResourceFilter resource = 4;
+    odddotnet.proto.common.v1.StringProperty instrumentationScopeSchemaUrl = 5;
+    odddotnet.proto.common.v1.StringProperty ResourceSchemaUrl = 6;
+  }
+}
+
+message PropertyFilter {
+  oneof value {
+    odddotnet.proto.common.v1.ByteStringProperty traceId = 1;
+    odddotnet.proto.common.v1.ByteStringProperty spanId = 2;
+    odddotnet.proto.common.v1.StringProperty traceState = 3;
+    odddotnet.proto.common.v1.ByteStringProperty parentSpanId = 4;
+    odddotnet.proto.common.v1.StringProperty name = 5;
+    SpanKindProperty kind = 6;
+    odddotnet.proto.common.v1.UInt64Property startTimeUnixNano = 7;
+    odddotnet.proto.common.v1.UInt64Property endTimeUnixNano = 8;
+    odddotnet.proto.common.v1.KeyValueProperty attribute = 9;
+    odddotnet.proto.common.v1.UInt32Property droppedAttributesCount = 10;
+    EventFilter event = 11;
+    odddotnet.proto.common.v1.UInt32Property droppedEventsCount = 12;
+    LinkFilter link = 13;
+    odddotnet.proto.common.v1.UInt32Property droppedLinksCount = 14;
+    StatusFilter status = 15;
+    odddotnet.proto.common.v1.UInt32Property flags = 16;
   }
 }
 ```

@@ -151,7 +151,7 @@ that takes the traceId byte array as an argument, along with an enum that specif
 of comparison you'd like to perform (in this case an EQUALS comparison).
 
 ## YouTube
-TODO: Insert youtube link here...
+Watch the video [here](https://youtu.be/2TqcE4Dxu1A?si=_R3V3DafmJUA1vEC).
 
 ## Credit
 Credit where credit is due. This sample project, and really the entire 
