@@ -23,15 +23,16 @@ This will start the container up and expose port 4317 on your host machine. You 
 omit this step if you are managing the container in code instead, such as with a test
 that uses [Testcontainers](https://testcontainers.com/) to spin up dependencies.
 
-### Protobuf
+### Protocol Buffers
 In addition to the container, you will also need a client for accessing the various
-query services (currently only `SpanQueryService` exists, more to come later).
+query services. The query services and messages are defined as proto files located in
+the official [OddDotProto](https://github.com/OddDotNet/OddDotProto) repository.
 
 #### Pre-built Client
 Currently only C# has a pre-built client. It can be pulled in as a NuGet package:
 
 ```bash
-dotnet add package OddDotNet.Client --version 0.0.4
+dotnet add package OddDotNet.Client --version 0.4.0
 ```
 
 The source code can be found at [OddDotCSharp](https://github.com/OddDotNet/OddDotCSharp).

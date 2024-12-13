@@ -1,6 +1,7 @@
 ---
 layout: single
 toc: true
+toc_sticky: true
 title: OddDotNet / .NET Aspire
 sidebar:
   nav: "samples"

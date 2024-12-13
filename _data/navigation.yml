@@ -39,6 +39,9 @@ docs:
       -
         title: "MetricQueryService"
         url: /documentation/queries/metrics
+      -
+        title: "LogQueryService"
+        url: /documentation/queries/logs
 samples:
   - 
     title: "C#"
@@ -46,6 +49,9 @@ samples:
       -
         title: ".NET Aspire"
         url: /quick-starts/csharp/aspire/
+      -
+        title: "OTel Collector"
+        url: /quick-starts/csharp/otelcol/
       -
         title: "Testcontainers"
         url: /quick-starts/csharp/testcontainers/

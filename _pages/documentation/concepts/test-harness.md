@@ -2,6 +2,7 @@
 layout: single
 title: "OpenTelemetry Test Harness"
 toc: true
+toc_sticky: true
 permalink: /documentation/concepts/test-harness/
 sidebar:
   nav: "docs"

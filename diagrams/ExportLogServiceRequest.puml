@@ -1,0 +1,19 @@
+@startuml ExportLogServiceRequest
+class ExportLogServiceRequest {
+    +ResourceLogs[] resource_logs
+}
+
+class ResourceLogs {
+    +ScopeLogs[] scope_logs
+}
+
+class ScopeLogs {
+    +LogRecord[] log_records
+}
+
+class LogRecord
+
+ExportLogServiceRequest "1" -- "many" ResourceLogs
+ResourceLogs "1" -- "many" ScopeLogs
+ScopeLogs "1" -- "many" LogRecord
+@enduml
