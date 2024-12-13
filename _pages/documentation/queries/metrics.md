@@ -1,6 +1,7 @@
 ---
 layout: single
 toc: true
+toc_sticky: true
 title: "Metric Queries"
 permalink: /documentation/queries/metrics
 sidebar:
@@ -17,159 +18,159 @@ message MetricQueryRequest {
 }
 
 message Where {
-    oneof value {
-        PropertyFilter property = 1;
-        OrFilter or = 2;
-        odddotnet.proto.common.v1.InstrumentationScopeFilter instrumentationScope = 3;
-        odddotnet.proto.resource.v1.ResourceFilter resource = 4;
-        odddotnet.proto.common.v1.StringProperty instrumentationScopeSchemaUrl = 5;
-        odddotnet.proto.common.v1.StringProperty ResourceSchemaUrl = 6;
-    }
+  oneof value {
+    PropertyFilter property = 1;
+    OrFilter or = 2;
+    odddotnet.proto.common.v1.InstrumentationScopeFilter instrumentation_scope = 3;
+    odddotnet.proto.resource.v1.ResourceFilter resource = 4;
+    odddotnet.proto.common.v1.StringProperty instrumentation_scope_schema_url = 5;
+    odddotnet.proto.common.v1.StringProperty resource_schema_url = 6;
+  }
 }
 
 message PropertyFilter {
-    reserved 4, 6, 8;
-    oneof value {
-        odddotnet.proto.common.v1.StringProperty name = 1;
-        odddotnet.proto.common.v1.StringProperty description = 2;
-        odddotnet.proto.common.v1.StringProperty unit = 3;
-        GaugeFilter gauge = 5;
-        SumFilter sum = 7;
-        HistogramFilter histogram = 9;
-        ExponentialHistogramFilter exponentialHistogram = 10;
-        SummaryFilter summary = 11;
-        odddotnet.proto.common.v1.KeyValueProperty metadata = 12;
-    }
+  reserved 4, 6, 8;
+  oneof value {
+    odddotnet.proto.common.v1.StringProperty name = 1;
+    odddotnet.proto.common.v1.StringProperty description = 2;
+    odddotnet.proto.common.v1.StringProperty unit = 3;
+    GaugeFilter gauge = 5;
+    SumFilter sum = 7;
+    HistogramFilter histogram = 9;
+    ExponentialHistogramFilter exponential_histogram = 10;
+    SummaryFilter summary = 11;
+    odddotnet.proto.common.v1.KeyValueListProperty metadata = 12;
+  }
 }
 
 message GaugeFilter {
-    oneof value {
-        NumberDataPointFilter dataPoint = 1;
-    }
+  oneof value {
+    NumberDataPointFilter data_point = 1;
+  }
 }
 
 message SumFilter {
-    oneof value {
-        NumberDataPointFilter dataPoint = 1;
-        AggregationTemporalityProperty aggregationTemporality = 2;
-        odddotnet.proto.common.v1.BoolProperty isMonotonic = 3;
-    }
+  oneof value {
+    NumberDataPointFilter data_point = 1;
+    AggregationTemporalityProperty aggregation_temporality = 2;
+    odddotnet.proto.common.v1.BoolProperty is_monotonic = 3;
+  }
 }
 
 message HistogramFilter {
-    oneof value {
-        HistogramDataPointFilter dataPoint = 1;
-        AggregationTemporalityProperty aggregationTemporality = 2;
-    }
+  oneof value {
+    HistogramDataPointFilter data_point = 1;
+    AggregationTemporalityProperty aggregation_temporality = 2;
+  }
 }
 
 message ExponentialHistogramFilter {
-    oneof value {
-        ExponentialHistogramDataPointFilter dataPoint = 1;
-        AggregationTemporalityProperty aggregationTemporality = 2;
-    }
+  oneof value {
+    ExponentialHistogramDataPointFilter data_point = 1;
+    AggregationTemporalityProperty aggregation_temporality = 2;
+  }
 }
 
 message SummaryFilter {
-    oneof value {
-        SummaryDataPointFilter dataPoint = 1;
-    }
+  oneof value {
+    SummaryDataPointFilter data_point = 1;
+  }
 }
 
 message HistogramDataPointFilter {
-    reserved 1;
-    oneof value {
-        odddotnet.proto.common.v1.KeyValueProperty attribute = 9;
-        odddotnet.proto.common.v1.UInt64Property startTimeUnixNano = 2;
-        odddotnet.proto.common.v1.UInt64Property timeUnixNano = 3;
-        odddotnet.proto.common.v1.UInt64Property count = 4;
-        odddotnet.proto.common.v1.DoubleProperty sum = 5;
-        odddotnet.proto.common.v1.UInt64Property bucketCount = 6;
-        odddotnet.proto.common.v1.DoubleProperty explicitBound = 7;
-        ExemplarFilter exemplar = 8;
-        odddotnet.proto.common.v1.UInt32Property flags = 10;
-        odddotnet.proto.common.v1.DoubleProperty min = 11;
-        odddotnet.proto.common.v1.DoubleProperty max = 12;
-    }
+  reserved 1;
+  oneof value {
+    odddotnet.proto.common.v1.KeyValueListProperty attributes = 9;
+    odddotnet.proto.common.v1.UInt64Property start_time_unix_nano = 2;
+    odddotnet.proto.common.v1.UInt64Property time_unix_nano = 3;
+    odddotnet.proto.common.v1.UInt64Property count = 4;
+    odddotnet.proto.common.v1.DoubleProperty sum = 5;
+    odddotnet.proto.common.v1.UInt64Property bucket_count = 6;
+    odddotnet.proto.common.v1.DoubleProperty explicit_bound = 7;
+    ExemplarFilter exemplar = 8;
+    odddotnet.proto.common.v1.UInt32Property flags = 10;
+    odddotnet.proto.common.v1.DoubleProperty min = 11;
+    odddotnet.proto.common.v1.DoubleProperty max = 12;
+  }
 }
 
 message ExponentialHistogramDataPointFilter {
-    oneof value {
-        odddotnet.proto.common.v1.KeyValueProperty attribute = 1;
-        odddotnet.proto.common.v1.UInt64Property startTimeUnixNano = 2;
-        odddotnet.proto.common.v1.UInt64Property timeUnixNano = 3;
-        odddotnet.proto.common.v1.UInt64Property count = 4;
-        odddotnet.proto.common.v1.DoubleProperty sum = 5;
-        odddotnet.proto.common.v1.Int32Property scale = 6;
-        odddotnet.proto.common.v1.UInt64Property zeroCount = 7;
-        BucketFilter positive = 8;
-        BucketFilter negative = 9;
-        odddotnet.proto.common.v1.UInt32Property flags = 10;
-        ExemplarFilter exemplar = 11;
-        odddotnet.proto.common.v1.DoubleProperty min = 12;
-        odddotnet.proto.common.v1.DoubleProperty max = 13;
-        odddotnet.proto.common.v1.DoubleProperty zeroThreshold = 14;
-    }
+  oneof value {
+    odddotnet.proto.common.v1.KeyValueListProperty attributes = 1;
+    odddotnet.proto.common.v1.UInt64Property start_time_unix_nano = 2;
+    odddotnet.proto.common.v1.UInt64Property time_unix_nano = 3;
+    odddotnet.proto.common.v1.UInt64Property count = 4;
+    odddotnet.proto.common.v1.DoubleProperty sum = 5;
+    odddotnet.proto.common.v1.Int32Property scale = 6;
+    odddotnet.proto.common.v1.UInt64Property zero_count = 7;
+    BucketFilter positive = 8;
+    BucketFilter negative = 9;
+    odddotnet.proto.common.v1.UInt32Property flags = 10;
+    ExemplarFilter exemplar = 11;
+    odddotnet.proto.common.v1.DoubleProperty min = 12;
+    odddotnet.proto.common.v1.DoubleProperty max = 13;
+    odddotnet.proto.common.v1.DoubleProperty zero_threshold = 14;
+  }
 }
 
 message BucketFilter {
-    oneof value {
-        odddotnet.proto.common.v1.Int32Property offset = 1;
-        odddotnet.proto.common.v1.UInt64Property bucketCount = 2;
-    }
+  oneof value {
+    odddotnet.proto.common.v1.Int32Property offset = 1;
+    odddotnet.proto.common.v1.UInt64Property bucket_count = 2;
+  }
 }
 
 message NumberDataPointFilter {
-    reserved 1;
-    oneof value {
-        odddotnet.proto.common.v1.KeyValueProperty attribute = 7;
-        odddotnet.proto.common.v1.UInt64Property startTimeUnixNano = 2;
-        odddotnet.proto.common.v1.UInt64Property timeUnixNano = 3;
-        odddotnet.proto.common.v1.DoubleProperty valueAsDouble = 4;
-        odddotnet.proto.common.v1.Int64Property valueAsInt = 6;
-        ExemplarFilter exemplar = 5;
-        odddotnet.proto.common.v1.UInt32Property flags = 8;
-    }
+  reserved 1;
+  oneof value {
+    odddotnet.proto.common.v1.KeyValueListProperty attributes = 7;
+    odddotnet.proto.common.v1.UInt64Property start_time_unix_nano = 2;
+    odddotnet.proto.common.v1.UInt64Property time_unix_nano = 3;
+    odddotnet.proto.common.v1.DoubleProperty value_as_double = 4;
+    odddotnet.proto.common.v1.Int64Property value_as_int = 6;
+    ExemplarFilter exemplar = 5;
+    odddotnet.proto.common.v1.UInt32Property flags = 8;
+  }
 }
 
 message SummaryDataPointFilter {
-    reserved 1;
-    oneof value {
-        odddotnet.proto.common.v1.KeyValueProperty attribute = 7;
-        odddotnet.proto.common.v1.UInt64Property startTimeUnixNano = 2;
-        odddotnet.proto.common.v1.UInt64Property timeUnixNano = 3;
-        odddotnet.proto.common.v1.UInt64Property count = 4;
-        odddotnet.proto.common.v1.DoubleProperty sum = 5;
-        ValueAtQuantileFilter quantileValue = 6;
-        odddotnet.proto.common.v1.UInt32Property flags = 8;
-    }
+  reserved 1;
+  oneof value {
+    odddotnet.proto.common.v1.KeyValueListProperty attributes = 7;
+    odddotnet.proto.common.v1.UInt64Property start_time_unix_nano = 2;
+    odddotnet.proto.common.v1.UInt64Property time_unix_nano = 3;
+    odddotnet.proto.common.v1.UInt64Property count = 4;
+    odddotnet.proto.common.v1.DoubleProperty sum = 5;
+    ValueAtQuantileFilter quantile_value = 6;
+    odddotnet.proto.common.v1.UInt32Property flags = 8;
+  }
 }
 
 message ExemplarFilter {
-    oneof value {
-        odddotnet.proto.common.v1.KeyValueProperty filteredAttribute = 1;
-        odddotnet.proto.common.v1.UInt64Property timeUnixNano = 2;
-        odddotnet.proto.common.v1.DoubleProperty valueAsDouble = 3;
-        odddotnet.proto.common.v1.Int64Property valueAsInt = 4;
-        odddotnet.proto.common.v1.ByteStringProperty spanId = 5;
-        odddotnet.proto.common.v1.ByteStringProperty traceId = 6;
-    }
+  oneof value {
+    odddotnet.proto.common.v1.KeyValueListProperty filtered_attributes = 1;
+    odddotnet.proto.common.v1.UInt64Property time_unix_nano = 2;
+    odddotnet.proto.common.v1.DoubleProperty value_as_double = 3;
+    odddotnet.proto.common.v1.Int64Property value_as_int = 4;
+    odddotnet.proto.common.v1.ByteStringProperty span_id = 5;
+    odddotnet.proto.common.v1.ByteStringProperty trace_id = 6;
+  }
 }
 
 message OrFilter {
-    repeated Where filters = 1;
+  repeated Where filters = 1;
 }
 
 message AggregationTemporalityProperty {
-    odddotnet.proto.common.v1.EnumCompareAsType compareAs = 1;
-    opentelemetry.proto.metrics.v1.AggregationTemporality compare = 2;
+  odddotnet.proto.common.v1.EnumCompareAsType compare_as = 1;
+  opentelemetry.proto.metrics.v1.AggregationTemporality compare = 2;
 }
 
 message ValueAtQuantileFilter {
-    oneof property {
-        odddotnet.proto.common.v1.DoubleProperty quantile = 1;
-        odddotnet.proto.common.v1.DoubleProperty value = 2;
-    }
+  oneof property {
+    odddotnet.proto.common.v1.DoubleProperty quantile = 1;
+    odddotnet.proto.common.v1.DoubleProperty value = 2;
+  }
     
 }
 ```
@@ -244,8 +245,8 @@ the above snippet of code in `An Example` can be simplified using the builder.
 ```csharp
 // ARRANGE
 var request = new MetricQueryRequestBuilder()
-  .TakeFirst() // Take the first span found
-  .Wait(TimeSpan.FromSeconds(1)) // Wait up to 1 second to find the span
+  .TakeFirst() // Take the first metric found
+  .Wait(TimeSpan.FromSeconds(1)) // Wait up to 1 second to find the metric
   .Where(filters => 
   {
     filters.Gauge.DataPoint.AddStartTimeUnixNanoFilter(123, NumberCompareAsType.Equals);
@@ -253,7 +254,7 @@ var request = new MetricQueryRequestBuilder()
   .Build();
 
 // ACT
-await TriggerWorkflowThatGeneratesSpans();
+await TriggerWorkflowThatGeneratesMetrics();
 
 // ASSERT
 var channel = GrpcChannel.ForAddress("http://localhost:4317");

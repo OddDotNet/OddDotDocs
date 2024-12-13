@@ -1,6 +1,7 @@
 ---
 layout: single
 toc: true
+toc_sticky: true
 title: "Span Queries"
 permalink: /documentation/queries/spans
 sidebar:
@@ -23,10 +24,10 @@ message Where {
   oneof value {
     PropertyFilter property = 1;
     OrFilter or = 2;
-    odddotnet.proto.common.v1.InstrumentationScopeFilter instrumentationScope = 3;
+    odddotnet.proto.common.v1.InstrumentationScopeFilter instrumentation_scope = 3;
     odddotnet.proto.resource.v1.ResourceFilter resource = 4;
-    odddotnet.proto.common.v1.StringProperty instrumentationScopeSchemaUrl = 5;
-    odddotnet.proto.common.v1.StringProperty ResourceSchemaUrl = 6;
+    odddotnet.proto.common.v1.StringProperty instrumentation_scope_schema_url = 5;
+    odddotnet.proto.common.v1.StringProperty resource_schema_url = 6;
   }
 }
 ```
@@ -35,20 +36,20 @@ message Where {
 ```proto
 message PropertyFilter {
   oneof value {
-    odddotnet.proto.common.v1.ByteStringProperty traceId = 1;
-    odddotnet.proto.common.v1.ByteStringProperty spanId = 2;
-    odddotnet.proto.common.v1.StringProperty traceState = 3;
-    odddotnet.proto.common.v1.ByteStringProperty parentSpanId = 4;
+    odddotnet.proto.common.v1.ByteStringProperty trace_id = 1;
+    odddotnet.proto.common.v1.ByteStringProperty span_id = 2;
+    odddotnet.proto.common.v1.StringProperty trace_state = 3;
+    odddotnet.proto.common.v1.ByteStringProperty parent_span_id = 4;
     odddotnet.proto.common.v1.StringProperty name = 5;
     SpanKindProperty kind = 6;
-    odddotnet.proto.common.v1.UInt64Property startTimeUnixNano = 7;
-    odddotnet.proto.common.v1.UInt64Property endTimeUnixNano = 8;
-    odddotnet.proto.common.v1.KeyValueProperty attribute = 9;
-    odddotnet.proto.common.v1.UInt32Property droppedAttributesCount = 10;
+    odddotnet.proto.common.v1.UInt64Property start_time_unix_nano = 7;
+    odddotnet.proto.common.v1.UInt64Property end_time_unix_nano = 8;
+    odddotnet.proto.common.v1.KeyValueListProperty attributes = 9;
+    odddotnet.proto.common.v1.UInt32Property dropped_attributes_count = 10;
     EventFilter event = 11;
-    odddotnet.proto.common.v1.UInt32Property droppedEventsCount = 12;
+    odddotnet.proto.common.v1.UInt32Property dropped_events_count = 12;
     LinkFilter link = 13;
-    odddotnet.proto.common.v1.UInt32Property droppedLinksCount = 14;
+    odddotnet.proto.common.v1.UInt32Property dropped_links_count = 14;
     StatusFilter status = 15;
     odddotnet.proto.common.v1.UInt32Property flags = 16;
   }
@@ -59,10 +60,10 @@ message PropertyFilter {
 ```proto
 message EventFilter {
   oneof value {
-    odddotnet.proto.common.v1.UInt64Property timeUnixNano = 1;
+    odddotnet.proto.common.v1.UInt64Property time_unix_nano = 1;
     odddotnet.proto.common.v1.StringProperty name = 2;
-    odddotnet.proto.common.v1.KeyValueProperty attribute = 3;
-    odddotnet.proto.common.v1.UInt32Property droppedAttributesCount = 4;
+    odddotnet.proto.common.v1.KeyValueListProperty attributes = 3;
+    odddotnet.proto.common.v1.UInt32Property dropped_attributes_count = 4;
   }
 }
 ```
@@ -71,11 +72,11 @@ message EventFilter {
 ```proto
 message LinkFilter {
   oneof value {
-    odddotnet.proto.common.v1.ByteStringProperty traceId = 1;
-    odddotnet.proto.common.v1.ByteStringProperty spanId = 2;
-    odddotnet.proto.common.v1.StringProperty traceState = 3;
-    odddotnet.proto.common.v1.KeyValueProperty attribute = 4;
-    odddotnet.proto.common.v1.UInt32Property droppedAttributesCount = 5;
+    odddotnet.proto.common.v1.ByteStringProperty trace_id = 1;
+    odddotnet.proto.common.v1.ByteStringProperty span_id = 2;
+    odddotnet.proto.common.v1.StringProperty trace_state = 3;
+    odddotnet.proto.common.v1.KeyValueListProperty attributes = 4;
+    odddotnet.proto.common.v1.UInt32Property dropped_attributes_count = 5;
     odddotnet.proto.common.v1.UInt32Property flags = 6;
   }
 }
